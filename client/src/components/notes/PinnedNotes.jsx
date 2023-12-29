@@ -4,12 +4,12 @@ import { useNotesStore } from "../../store/index";
 import NoteCard from "../cards/NoteCard";
 
 export default function PinnedNotes() {
-  const PinnedNotes = useNotesStore((state) =>
-    state.notes.filter((i) => i.isPinned === true)
-  );
+  const notes = useNotesStore((state) => state?.notes);
+  const PinnedNotes = notes?.filter((i) => i.isPinned === true);
+
   return (
-    <View>
-      {PinnedNotes.length > 0 ? (
+    <View className="min-h-[200px]">
+      {PinnedNotes?.length > 0 ? (
         <View>
           <FlatList
             data={PinnedNotes}

@@ -1,45 +1,54 @@
 import React, { useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useNotesStore } from "../../store";
-const uuidv4 = require("uuid/v4")
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import { generateID } from "../../utils";
 
 export default function CreateNoteForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const addTodoFn = useNotesStore((state)=>state.createNote)
-  const navigation = useNavigation()
+  const addTodoFn = useNotesStore((state) => state.createNote);
+  const navigation = useNavigation();
 
   function addTodo() {
     if (title === "" && content === "") {
       Alert.alert("Error", "Unable to create note. Some fields are empty.");
     } else {
       const data = {
-        id:uuidv4(),
+        id: generateID(),
         title,
         content,
-        isPinned:true
-      }
-      addTodoFn(data)
-      navigation.navigate("Home")
+        isPinned: false,
+      };
+      addTodoFn(data);
+      navigation.navigate("Home");
     }
   }
 
   return (
-    <View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="flex-1 justify-center"
+    >
       <View className="mb-5">
-        <Text className="mb-2 text-lg">Title</Text>
         <TextInput
-          className="border border-[#777777] rounded-md px-2 py-2 text-lg"
+          className="px-2 py-2 text-lg"
           placeholder="Title"
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
       </View>
       <View className="mb-5">
-        <Text className="mb-2 text-lg">Content</Text>
         <TextInput
-          className="border border-[#777777] min-h-[300px] text-lg rounded-md px-2 py-1"
+          className="min-h-[300px] text-lg px-2 py-1"
           placeholder="Content"
           multiline
           value={content}
@@ -55,6 +64,6 @@ export default function CreateNoteForm() {
           Create Note
         </Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

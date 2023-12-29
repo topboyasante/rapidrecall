@@ -57,6 +57,7 @@ export function TabBar({ state, descriptors, navigation }) {
                   ? "flex gap-2 items-center flex-1"
                   : "flex gap-2 items-center flex-1"
               }
+              key={label}
             >
               {renderIcons(label)}
               <Text className={isFocused?"font-semibold":""}>

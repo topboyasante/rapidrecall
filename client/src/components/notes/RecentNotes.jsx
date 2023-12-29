@@ -4,11 +4,11 @@ import { useNotesStore } from "../../store";
 import NoteCard from "../cards/NoteCard";
 
 export default function RecentNotes() {
-  const notes = useNotesStore((state) => state.notes);
-  const recentNotes = notes.sort((a, b) => b - a);
+  const notes = useNotesStore((state) => state?.notes);
+  const recentNotes = notes?.sort((a, b) => b - a);
   return (
     <View>
-      {recentNotes.length > 0 ? (
+      {recentNotes?.length > 0 ? (
         <View>
           {recentNotes.map((item) => {
             return (
