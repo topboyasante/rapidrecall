@@ -1,7 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { TrashIcon, PencilIcon } from "react-native-heroicons/solid";
+import { useNotesStore } from "../../store/index";
 
-export default function NoteCard({ title, content, isHorizontal }) {
+export default function NoteCard({ id, title, content, isHorizontal }) {
+  const deleteNote = useNotesStore((state) => state.deleteNote);
   return (
     <View
       className={
@@ -10,7 +13,15 @@ export default function NoteCard({ title, content, isHorizontal }) {
           : "bg-[#fef68a] rounded-xl p-4 w-full min-h-[200px] flex flex-col mb-5 whitespace-pre-wrap"
       }
     >
-      <Text className="text-xl mb-2 font-semibold">{title}</Text>
+      <View className="flex flex-row justify-between items-center">
+        <Text className="text-xl mb-2 font-semibold">{title}</Text>
+        <View className="flex flex-row items-center gap-2">
+          <PencilIcon color={"black"} />
+          <TouchableOpacity onPress={() => deleteNote(id)}>
+            <TrashIcon color={"black"} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <Text className="text-lg">{content}</Text>
     </View>
   );
