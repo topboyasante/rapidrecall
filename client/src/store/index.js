@@ -1,7 +1,17 @@
 import { create } from "zustand";
+import { generateID } from "../utils";
 
 export const useNotesStore = create((set) => ({
-  notes: [],
+  notes: [
+    {
+      id: generateID(),
+      title: "Welcome to RapidRecall!",
+      content: `📝Type In Your Note
+👀Save and Edit
+🗑️Don't Need It? Delete!`,
+      isPinned: false,
+    },
+  ],
   createNote: (payload) =>
     set((state) => ({ notes: [...state.notes, payload] })),
   deleteNote: (id) =>
