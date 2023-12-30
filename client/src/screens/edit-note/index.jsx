@@ -34,16 +34,13 @@ export default function EditNote({ route }) {
   return (
     <SafeAreaView className="bg-white flex-1">
       <ScrollView className="p-5">
-        <View className="mb-5">
-          <Text className="text-3xl font-bold">Edit A Note</Text>
-        </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           className="flex-1 justify-center"
         >
           <View className="mb-5">
             <TextInput
-              className="px-2 py-2 text-lg"
+              className="px-2 py-2 text-3xl font-bold"
               placeholder="Title"
               value={title}
               onChangeText={(text) => setTitle(text)}

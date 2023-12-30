@@ -29,6 +29,8 @@ export default function CreateNoteForm() {
         isPinned: false,
       };
       addNoteFn(data);
+      setTitle("")
+      setContent("")
       navigation.navigate("Home");
     }
   }
@@ -40,7 +42,7 @@ export default function CreateNoteForm() {
     >
       <View className="mb-5">
         <TextInput
-          className="px-2 py-2 text-lg"
+          className="px-2 py-2 text-3xl font-bold"
           placeholder="Title"
           value={title}
           onChangeText={(text) => setTitle(text)}
