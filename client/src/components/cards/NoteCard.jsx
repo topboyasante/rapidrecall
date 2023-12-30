@@ -2,12 +2,19 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { TrashIcon, PencilIcon } from "react-native-heroicons/solid";
 import { useNotesStore } from "../../store/index";
+import { useNavigation } from "@react-navigation/native";
 
 export default function NoteCard({ id, title, content, isHorizontal }) {
   const deleteNote = useNotesStore((state) => state.deleteNote);
   const PinNote = useNotesStore((state) => state.pinNote);
+  const navigation = useNavigation();
+
+  function goToEditPage(id) {
+    navigation.navigate("edit", { id });
+  }
+
   return (
-    <TouchableOpacity onLongPress={()=>PinNote(id)}>
+    <TouchableOpacity onLongPress={() => PinNote(id)}>
       <View
         className={
           isHorizontal
@@ -18,7 +25,9 @@ export default function NoteCard({ id, title, content, isHorizontal }) {
         <View className="flex flex-row justify-between items-center">
           <Text className="text-xl mb-2 font-semibold">{title}</Text>
           <View className="flex flex-row items-center gap-2">
-            <PencilIcon color={"black"} />
+            <TouchableOpacity onPress={() => goToEditPage(id)}>
+              <PencilIcon color={"black"} />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => deleteNote(id)}>
               <TrashIcon color={"black"} />
             </TouchableOpacity>

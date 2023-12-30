@@ -15,10 +15,10 @@ import { generateID } from "../../utils";
 export default function CreateNoteForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const addTodoFn = useNotesStore((state) => state.createNote);
+  const addNoteFn = useNotesStore((state) => state.createNote);
   const navigation = useNavigation();
 
-  function addTodo() {
+  function addNote() {
     if (title === "" && content === "") {
       Alert.alert("Error", "Unable to create note. Some fields are empty.");
     } else {
@@ -28,7 +28,7 @@ export default function CreateNoteForm() {
         content,
         isPinned: false,
       };
-      addTodoFn(data);
+      addNoteFn(data);
       navigation.navigate("Home");
     }
   }
@@ -58,7 +58,7 @@ export default function CreateNoteForm() {
       <TouchableOpacity
         title="Add Todo"
         className="bg-green-700 w-full px-4 py-2 rounded-md"
-        onPress={addTodo}
+        onPress={addNote}
       >
         <Text className="text-center text-white text-lg font-bold">
           Create Note

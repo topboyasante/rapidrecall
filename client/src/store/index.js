@@ -20,4 +20,16 @@ export const useNotesStore = create((set) => ({
       // Return the updated state with the modified notes array
       return { ...state, notes: updatedNotes };
     }),
+  editNote: (id, title, content) =>
+    set((state) => {
+      const updatedNotes = state.notes.map((note) => {
+        if (note.id === id) {
+          return { ...note, title, content };
+        }
+        return note;
+      });
+
+      // Return the updated state with the modified notes array
+      return { ...state, notes: updatedNotes };
+    }),
 }));
